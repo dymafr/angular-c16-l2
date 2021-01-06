@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 import { Cocktail } from "../shared/interfaces/cocktail.interface";
 import { CocktailService } from "../shared/services/cocktail.service";
 
@@ -8,15 +9,9 @@ import { CocktailService } from "../shared/services/cocktail.service";
   styleUrls: ["./cocktail-container.component.scss"]
 })
 export class CocktailContainerComponent implements OnInit {
-  public cocktails: Cocktail[];
+  public cocktails: Observable<Cocktail[]> = this.cocktailService.cocktails$;
 
   constructor(private cocktailService: CocktailService) {}
 
-  ngOnInit() {
-    this.subscription.add(
-      this.cocktailService.cocktails$.subscribe((cocktails: Cocktail[]) => {
-        this.cocktails = cocktails;
-      })
-    );
-  }
+  ngOnInit() {}
 }
